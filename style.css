@@ -434,7 +434,8 @@ body {
 
 /* ── RESPONSIVE: MOBILE ── */
 @media (max-width: 768px) {
-    body { overflow: auto; }
+    body { overflow-x: hidden; overflow-y: auto; }
+    html { overflow-x: hidden; }
 
     .page-wrapper { grid-template-columns: 1fr; height: auto; }
 
