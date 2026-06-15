@@ -366,6 +366,15 @@ body {
 .contact-row-text .label { font-size: .76rem; color: var(--text-light); }
 .contact-row-text .value { font-size: .93rem; font-weight: 500; }
 
+.contact-tagline {
+    grid-column: span 2;
+    text-align: center;
+    font-size: .95rem;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 14px 0 4px;
+}
+
 .cta-card {
     grid-column: span 2;
     background: linear-gradient(135deg, var(--primary), #5c7a68);
