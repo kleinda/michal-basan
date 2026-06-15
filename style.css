@@ -1,0 +1,467 @@
+:root {
+    --primary:      #7a9e87;
+    --primary-dark: #5c7a68;
+    --accent:       #c4a882;
+    --bg:           #faf8f5;
+    --card-bg:      #f2ede5;
+    --white:        #ffffff;
+    --text:         #3a3a3a;
+    --text-light:   #6b6b6b;
+    --border:       #e8e2d9;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100dvh;
+    overflow: hidden;
+    direction: rtl;
+}
+
+/* ── LAYOUT ── */
+.page-wrapper {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    height: 100dvh;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+    background: linear-gradient(160deg, #e8f0e9 0%, #f2ede5 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 26px 20px;
+    border-left: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(122,158,135,.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.sidebar::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(196,168,130,.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Profile */
+.profile-section { text-align: center; position: relative; z-index: 1; width: 100%; }
+
+.profile-img-wrapper { position: relative; display: inline-block; margin-bottom: 14px; }
+
+.profile-img {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 8px 28px rgba(0,0,0,.13);
+    display: block;
+}
+
+.profile-badge {
+    position: absolute; bottom: 4px; left: 4px;
+    background: var(--primary); color: white;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    border: 3px solid white;
+}
+
+.sidebar h1 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1.75rem; font-weight: 500;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    font-size: .83rem; color: var(--text-light);
+    line-height: 1.7; max-width: 240px; margin: 0 auto 4px;
+}
+
+.subtitle .accent { color: var(--accent); font-weight: 500; }
+
+.divider {
+    width: 44px; height: 2px;
+    background: linear-gradient(to left, var(--primary), var(--accent));
+    margin: 12px auto 14px; border-radius: 2px;
+}
+
+/* Meta */
+.sidebar-meta {
+    width: 100%; display: flex; flex-direction: column; gap: 6px;
+    font-size: .82rem; color: var(--text-light); margin-bottom: 14px;
+}
+
+.meta-item {
+    display: flex; align-items: center; gap: 8px; justify-content: center;
+}
+
+.meta-item i { color: var(--primary); width: 14px; font-size: .85rem; flex-shrink: 0; }
+
+/* Buttons */
+.contact-buttons { display: flex; gap: 8px; width: 100%; margin-bottom: 20px; }
+
+.btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 10px 10px; border-radius: 10px; text-decoration: none;
+    font-size: .82rem; font-weight: 600; transition: all .2s ease;
+    cursor: pointer; border: none; font-family: 'Heebo', sans-serif;
+    white-space: nowrap; overflow: hidden;
+}
+
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+.btn-whatsapp { background: #25d366; color: white; }
+.btn-whatsapp:hover { background: #1daa53; transform: translateY(-1px); }
+
+/* Nav */
+.sidebar-nav {
+    width: 100%; display: flex; flex-direction: column; gap: 3px;
+    position: relative; z-index: 1;
+}
+
+.nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-radius: 10px; cursor: pointer;
+    transition: all .2s ease; font-size: .88rem;
+    color: var(--text-light); font-weight: 400;
+    border: none; background: transparent;
+    font-family: 'Heebo', sans-serif; text-align: right; width: 100%;
+}
+
+.nav-item i { width: 18px; color: var(--primary); font-size: .9rem; }
+
+.nav-item:hover { background: rgba(122,158,135,.1); color: var(--text); }
+
+.nav-item.active {
+    background: white; color: var(--primary-dark); font-weight: 600;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+
+.sidebar-footer {
+    margin-top: auto; font-size: .72rem; color: #bbb;
+    text-align: center; position: relative; z-index: 1; padding-top: 10px;
+}
+
+/* ── CONTENT PANEL ── */
+.content-panel {
+    overflow-y: auto; padding: 38px 42px; background: var(--bg);
+}
+
+.content-panel::-webkit-scrollbar { width: 5px; }
+.content-panel::-webkit-scrollbar-track { background: transparent; }
+.content-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── TABS ── */
+.tab-content { display: none; animation: fadeIn .2s ease; }
+.tab-content.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.tab-header { margin-bottom: 8px; }
+
+.tab-header h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1.75rem; font-weight: 400; color: var(--primary-dark);
+}
+
+.tab-divider {
+    width: 55px; height: 3px;
+    background: linear-gradient(to left, var(--primary), var(--accent));
+    border-radius: 2px; margin: 10px 0 24px;
+}
+
+/* ── TAB 1: עלי ── */
+.about-layout {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 32px;
+    align-items: start;
+}
+
+.about-image {
+    width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 10px 36px rgba(0,0,0,.12);
+    position: sticky;
+    top: 0;
+}
+
+.intro-text p {
+    font-size: .98rem; line-height: 1.85; color: #444; margin-bottom: 16px;
+}
+
+.intro-text p:last-child { margin-bottom: 0; }
+
+.quote-box {
+    background: linear-gradient(135deg, #e8f0e9, #f2ede5);
+    border-right: 3px solid var(--primary);
+    padding: 18px 20px; border-radius: 0 12px 12px 0;
+    margin: 20px 0; font-size: .97rem; font-style: italic;
+    color: var(--primary-dark); line-height: 1.75;
+}
+
+/* ── TAB 2: במי אני מטפלת ── */
+.audience-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+
+.audience-card {
+    background: white; border-radius: 16px; padding: 24px 18px;
+    text-align: center; box-shadow: 0 2px 16px rgba(0,0,0,.05);
+    border: 1px solid var(--border);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.audience-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,.09); }
+
+.audience-card .icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--primary), #5c7a68);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px; font-size: 1.4rem; color: white;
+}
+
+.audience-card h3 { font-size: 1rem; font-weight: 600; color: var(--primary-dark); margin-bottom: 8px; }
+.audience-card p  { font-size: .84rem; color: var(--text-light); line-height: 1.6; }
+
+/* ── TAB 3: תחומי טיפול ── */
+.services-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; margin-bottom: 24px;
+}
+
+.service-card {
+    background: white; border-radius: 14px; padding: 20px 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.04); border: 1px solid var(--border);
+    border-top: 3px solid var(--primary); transition: transform .2s ease;
+}
+
+.service-card:hover { transform: translateY(-2px); }
+.service-card h3  { font-size: .97rem; font-weight: 600; color: var(--primary-dark); margin-bottom: 7px; }
+.service-card p   { font-size: .83rem; color: var(--text-light); line-height: 1.6; }
+
+/* Credentials */
+.credentials-section {
+    background: white; border-radius: 16px; padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.04); border: 1px solid var(--border);
+}
+
+.credentials-section h3 {
+    font-family: 'Frank Ruhl Libre', serif; font-size: 1.15rem;
+    color: var(--primary-dark); margin-bottom: 18px; font-weight: 400;
+}
+
+.cred-subtitle {
+    font-size: .78rem; font-weight: 600; color: var(--text-light);
+    text-transform: uppercase; letter-spacing: .5px;
+    margin: 16px 0 10px;
+}
+
+.cred-subtitle:first-of-type { margin-top: 0; }
+
+.cred-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+.cred-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--card-bg); padding: 12px 14px; border-radius: 12px;
+}
+
+.cred-logo {
+    width: 56px; height: 48px; object-fit: contain;
+    border-radius: 8px; background: white; padding: 5px; flex-shrink: 0;
+}
+
+.cred-text h4 { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.cred-text p  { font-size: .78rem; color: var(--text-light); line-height: 1.4; }
+
+/* ── TAB 4: השכלה ── */
+.resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+.resume-box {
+    background: white; border-radius: 16px; padding: 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.04); border: 1px solid var(--border);
+}
+
+.box-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border);
+}
+
+.box-header .icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--primary), #5c7a68);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    color: white; font-size: .95rem; flex-shrink: 0;
+}
+
+.box-header h3 { font-size: 1rem; font-weight: 600; color: var(--primary-dark); }
+
+.resume-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+
+.resume-list li {
+    display: flex; align-items: flex-start; gap: 9px;
+    font-size: .83rem; color: #444; line-height: 1.5;
+}
+
+.resume-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--primary); border-radius: 50%;
+    flex-shrink: 0; margin-top: 6px;
+}
+
+/* ── TAB 5: יצירת קשר ── */
+.contact-wrapper {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;
+}
+
+.contact-card {
+    background: white; border-radius: 16px; padding: 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.04); border: 1px solid var(--border);
+}
+
+.contact-card h3 {
+    font-family: 'Frank Ruhl Libre', serif; font-size: 1.15rem;
+    color: var(--primary-dark); font-weight: 400; margin-bottom: 18px;
+}
+
+.contact-list { display: flex; flex-direction: column; gap: 13px; }
+
+.contact-row {
+    display: flex; align-items: center; gap: 13px;
+    text-decoration: none; color: var(--text); transition: color .2s;
+}
+
+.contact-row:hover { color: var(--primary); }
+
+.contact-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--card-bg); display: flex; align-items: center; justify-content: center;
+    color: var(--primary); font-size: 1.05rem; flex-shrink: 0;
+}
+
+.contact-row-text .label { font-size: .76rem; color: var(--text-light); }
+.contact-row-text .value { font-size: .93rem; font-weight: 500; }
+
+.cta-card {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--primary), #5c7a68);
+    border-radius: 16px; padding: 26px 30px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+
+.cta-card .text h3 { font-size: 1.15rem; color: white; font-weight: 600; margin-bottom: 4px; }
+.cta-card .text p  { font-size: .87rem; color: rgba(255,255,255,.8); }
+
+.btn-cta {
+    background: white; color: var(--primary-dark);
+    padding: 12px 26px; border-radius: 12px; text-decoration: none;
+    font-weight: 600; font-size: .9rem; transition: all .2s ease;
+    white-space: nowrap; font-family: 'Heebo', sans-serif; display: flex;
+    align-items: center; gap: 7px;
+}
+
+.btn-cta:hover { background: #f2ede5; transform: translateY(-1px); }
+
+/* ── FLOATING WHATSAPP ── */
+.whatsapp-float {
+    position: fixed; bottom: 22px; left: 22px;
+    background: #25d366; color: white;
+    width: 54px; height: 54px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 27px; box-shadow: 0 4px 16px rgba(37,211,102,.4);
+    z-index: 100; text-decoration: none; transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 22px rgba(37,211,102,.55); }
+
+/* ── RESPONSIVE: TABLET ── */
+@media (max-width: 1100px) {
+    .page-wrapper { grid-template-columns: 300px 1fr; }
+    .content-panel { padding: 28px 26px; }
+    .about-layout { grid-template-columns: 1fr 200px; gap: 22px; }
+    .resume-grid   { grid-template-columns: 1fr; }
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .cta-card { grid-column: 1; }
+}
+
+/* ── RESPONSIVE: MOBILE ── */
+@media (max-width: 768px) {
+    body { overflow: auto; }
+
+    .page-wrapper { grid-template-columns: 1fr; height: auto; }
+
+    /* Sidebar becomes top header */
+    .sidebar { height: auto; padding: 24px 16px 14px; }
+
+    /* Profile compact */
+    .profile-img { width: 100px; height: 100px; }
+    .sidebar h1  { font-size: 1.45rem; }
+
+    /* Contact buttons: taller touch targets */
+    .contact-buttons { gap: 10px; }
+    .btn { padding: 13px 10px; font-size: .82rem; min-height: 48px; }
+
+    /* Nav: single row, icon only, equal width */
+    .sidebar-nav { flex-direction: row; gap: 0; }
+
+    .nav-item {
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        padding: 12px 2px;
+        font-size: .62rem;
+        border-radius: 8px;
+        min-height: 56px;
+    }
+
+    .nav-item i { width: auto; font-size: 1.15rem; }
+
+    .nav-item span {
+        display: block;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 58px;
+    }
+
+    /* Content panel */
+    .content-panel { padding: 20px 14px; overflow-y: visible; height: auto; }
+
+    /* About tab: image appears above text on mobile */
+    .about-layout   { grid-template-columns: 1fr; }
+    .about-image    { order: -1; max-width: 240px; margin: 0 auto 20px; display: block; position: static; }
+
+    /* All grids → single column */
+    .audience-grid   { grid-template-columns: 1fr; }
+    .services-grid   { grid-template-columns: 1fr; }
+    .cred-grid       { grid-template-columns: 1fr; }
+    .resume-grid     { grid-template-columns: 1fr; }
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .cta-card { grid-column: 1; flex-direction: column; text-align: center; gap: 14px; }
+    .btn-cta  { justify-content: center; }
+}
