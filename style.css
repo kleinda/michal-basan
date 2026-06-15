@@ -66,7 +66,7 @@ body {
 .profile-img-wrapper { position: relative; display: inline-block; margin-bottom: 14px; }
 
 .profile-img {
-    width: 160px; height: 160px;
+    width: 208px; height: 208px;
     border-radius: 14px;
     object-fit: contain;
     background: white;
@@ -457,7 +457,7 @@ body {
     }
 
     .profile-img-wrapper { flex-shrink: 0; }
-    .profile-img  { width: 80px; height: 80px; border-radius: 10px; }
+    .profile-img  { width: 104px; height: 104px; border-radius: 10px; }
     .profile-badge { width: 24px; height: 24px; font-size: 10px; bottom: 2px; left: 2px; }
 
     .profile-text { flex: 1; text-align: right; }
