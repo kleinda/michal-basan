@@ -378,13 +378,16 @@
 
     function initCerts() {
         const idx = document.getElementById('certsIndex');
-        let html = '', lastCat = '';
+        let html = '', lastCat = '', catIdx = 0;
         CERTS.forEach((c, i) => {
             if (c.cat !== lastCat) {
                 if (lastCat) html += '</ul></div>';
                 const m = CAT_META[c.cat];
-                html += `<div class="cert-cat"><div class="cert-cat-title" style="color:${m.color}"><i class="${m.icon}"></i>${c.cat}</div><ul>`;
-                lastCat = c.cat;
+                html += `<div class="cert-cat${catIdx===0?' open':''}">
+                    <div class="cert-cat-title" style="--cat-color:${m.color}" onclick="toggleCertCat(this)">
+                        <i class="${m.icon}"></i><span>${c.cat}</span><i class="fas fa-chevron-left cert-arrow"></i>
+                    </div><ul>`;
+                lastCat = c.cat; catIdx++;
             }
             html += `<li class="cert-nav-item${i===0?' active':''}" data-i="${i}" onclick="selectCert(${i})">${c.name}</li>`;
         });
@@ -393,6 +396,14 @@
         document.getElementById('certImg').src = CERTS[0].file;
         document.getElementById('certLabel').textContent = CERTS[0].name;
         document.getElementById('certCountText').textContent = '1 / ' + CERTS.length;
+    }
+
+    function toggleCertCat(el) {
+        if (window.innerWidth > 768) return;
+        const cat = el.parentElement;
+        const isOpen = cat.classList.contains('open');
+        document.querySelectorAll('.cert-cat').forEach(c => c.classList.remove('open'));
+        if (!isOpen) cat.classList.add('open');
     }
 
     function selectCert(i) {

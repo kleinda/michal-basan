@@ -423,7 +423,10 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+    color: var(--cat-color, var(--primary-dark));
 }
+
+.cert-arrow { display: none; }
 
 .certs-index ul { list-style: none; }
 
@@ -673,15 +676,98 @@ body {
     .cta-card { grid-column: 1; flex-direction: column; text-align: center; gap: 14px; }
     .btn-cta  { justify-content: center; }
 
-    /* Certs tab mobile */
-    .certs-layout { grid-template-columns: 1fr; }
-    .certs-index  { max-height: 160px; overflow-x: auto; overflow-y: hidden;
-                    display: flex; flex-direction: row; gap: 10px; white-space: nowrap; padding-bottom: 6px; }
-    .cert-cat     { display: inline-block; margin-bottom: 0; vertical-align: top; }
-    .cert-cat-title { font-size: .65rem; }
-    .cert-nav-item  { display: inline-block; padding: 4px 8px; font-size: .72rem; }
-    .certs-index ul { display: inline-flex; flex-wrap: wrap; gap: 3px; }
-    .cert-card-display img { max-height: 45vh; }
+    /* Certs tab mobile — accordion + viewer side by side */
+    #tab-certs {
+        height: calc(100dvh - 180px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    #tab-certs .tab-header { flex-shrink: 0; margin-bottom: 8px; }
+    #tab-certs .tab-header h2 { font-size: 1.05rem; }
+
+    .certs-layout {
+        grid-template-columns: 128px 1fr;
+        gap: 10px;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    /* Accordion index */
+    .certs-index {
+        display: block;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: none;
+        height: 100%;
+        white-space: normal;
+        padding: 0;
+    }
+
+    .cert-cat { display: block; margin-bottom: 3px; }
+
+    .cert-cat-title {
+        cursor: pointer;
+        background: var(--card-bg);
+        border-radius: 8px;
+        padding: 7px 8px;
+        font-size: .68rem;
+        color: var(--cat-color, var(--primary-dark)) !important;
+        border-bottom: none;
+        justify-content: space-between;
+        margin-bottom: 0;
+        user-select: none;
+        transition: background .15s;
+    }
+
+    .cert-cat-title:hover { background: #e8e2d9; }
+    .cert-cat-title span { flex: 1; }
+
+    .cert-arrow {
+        transition: transform .2s;
+        font-size: .6rem !important;
+        margin-right: 0 !important;
+        transform: rotate(0deg);
+    }
+
+    .cert-cat.open .cert-arrow { transform: rotate(-90deg); }
+
+    .cert-cat ul { display: none; padding: 3px 0 4px 4px; }
+    .cert-cat.open ul { display: block; }
+
+    .certs-index ul { display: block; flex-wrap: unset; gap: 0; }
+
+    .cert-nav-item {
+        display: block;
+        font-size: .72rem;
+        padding: 4px 8px;
+        border-radius: 6px;
+        line-height: 1.3;
+        white-space: normal;
+    }
+
+    /* Viewer */
+    .certs-viewer {
+        gap: 8px;
+        height: 100%;
+        justify-content: flex-start;
+        overflow: hidden;
+    }
+
+    .certs-stack { max-width: 100%; }
+
+    .cert-card-display img { max-height: 46dvh; }
+
+    .cert-ghost.g1, .cert-ghost.g2, .cert-ghost.g3 { height: 32px; }
+    .cert-ghost.g1 { transform: translateX(-50%) translateY(8px)  scale(0.96); }
+    .cert-ghost.g2 { transform: translateX(-50%) translateY(16px) scale(0.92); }
+    .cert-ghost.g3 { transform: translateX(-50%) translateY(24px) scale(0.88); }
+
+    .cert-card-display { margin-bottom: 24px; }
+
+    .cert-counter { gap: 10px; font-size: .78rem; }
+    .cert-nav-btn { width: 28px; height: 28px; font-size: .75rem; }
 
     /* Page footer visible on mobile */
     .page-footer {
