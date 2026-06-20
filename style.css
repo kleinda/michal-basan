@@ -460,44 +460,12 @@ body {
     perspective: 1200px;
 }
 
-.cert-ghost {
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    border-radius: 14px;
-    pointer-events: none;
-}
-
-.cert-ghost.g1 {
-    width: 95%; height: 52px;
-    transform: translateX(-50%) translateY(10px) scale(0.96);
-    background: linear-gradient(135deg,#e5ddd4,#ddd5cc);
-    z-index: 1;
-    box-shadow: 0 3px 10px rgba(0,0,0,.07);
-}
-
-.cert-ghost.g2 {
-    width: 91%; height: 52px;
-    transform: translateX(-50%) translateY(20px) scale(0.92);
-    background: linear-gradient(135deg,#dbd3ca,#d3cbc2);
-    z-index: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,.05);
-}
-
-.cert-ghost.g3 {
-    width: 87%; height: 52px;
-    transform: translateX(-50%) translateY(30px) scale(0.88);
-    background: #cec6bd;
-    z-index: -1;
-}
-
 .cert-card-display {
     position: relative;
     z-index: 10;
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 10px 36px rgba(0,0,0,.18);
-    margin-bottom: 30px;
     transform-origin: center center;
     background: white;
 }
@@ -759,12 +727,7 @@ body {
 
     .cert-card-display img { max-height: 46dvh; }
 
-    .cert-ghost.g1, .cert-ghost.g2, .cert-ghost.g3 { height: 32px; }
-    .cert-ghost.g1 { transform: translateX(-50%) translateY(8px)  scale(0.96); }
-    .cert-ghost.g2 { transform: translateX(-50%) translateY(16px) scale(0.92); }
-    .cert-ghost.g3 { transform: translateX(-50%) translateY(24px) scale(0.88); }
-
-    .cert-card-display { margin-bottom: 24px; }
+    .cert-card-display { margin-bottom: 0; }
 
     .cert-counter { gap: 10px; font-size: .78rem; }
     .cert-nav-btn { width: 28px; height: 28px; font-size: .75rem; }
