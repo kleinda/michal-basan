@@ -66,6 +66,9 @@
             <button class="nav-item" onclick="showTab('contact', this)">
                 <i class="fas fa-envelope"></i><span>יצירת קשר</span>
             </button>
+            <button class="nav-item" onclick="showTab('certs', this)">
+                <i class="fas fa-certificate"></i><span>תעודות</span>
+            </button>
         </nav>
 
         <div class="sidebar-footer">&copy; 2026 מיכל בסן</div>
@@ -288,6 +291,36 @@
             </div>
         </div>
 
+        <!-- TAB 6 – תעודות -->
+        <div id="tab-certs" class="tab-content">
+            <div class="tab-header">
+                <h2>תעודות והסמכות</h2>
+                <div class="tab-divider"></div>
+            </div>
+            <div class="certs-layout">
+
+                <nav class="certs-index" id="certsIndex"></nav>
+
+                <div class="certs-viewer">
+                    <div class="certs-stack">
+                        <div class="cert-ghost g3"></div>
+                        <div class="cert-ghost g2"></div>
+                        <div class="cert-ghost g1"></div>
+                        <div class="cert-card-display" id="certDisplay">
+                            <img id="certImg" src="" alt="" loading="lazy">
+                            <div class="cert-label" id="certLabel"></div>
+                        </div>
+                    </div>
+                    <div class="cert-counter">
+                        <button class="cert-nav-btn" onclick="certNav(-1)" title="הקודם"><i class="fas fa-chevron-right"></i></button>
+                        <span id="certCountText">1 / 16</span>
+                        <button class="cert-nav-btn" onclick="certNav(1)" title="הבא"><i class="fas fa-chevron-left"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </main>
 </div>
 
@@ -311,6 +344,98 @@
         document.getElementById('tab-' + tabId).classList.add('active');
         btn.classList.add('active');
         document.querySelector('.content-panel').scrollTop = 0;
+        if (tabId === 'certs' && !certsReady) { initCerts(); certsReady = true; }
+    }
+
+    /* ── CERTS ── */
+    const CERTS = [
+        { name:'תואר ראשון B.Ed.',          file:'Teudot/תואר ראשון B. Ed..jpeg',                                   cat:'תארים' },
+        { name:'מוסמך בחינוך M.Ed.',         file:'Teudot/מוסמך בחינוך M.Ed.jpeg',                                   cat:'תארים' },
+        { name:'תואר שני – ייעוץ חינוכי',    file:'Teudot/תואר שני - ייעוץ חינוכי.jpeg',                             cat:'תארים' },
+        { name:'תואר שני – טיפול באומנות',   file:'Teudot/תואר שני בטיפול באומנות למטפלים מנוסים.jpg',              cat:'תארים' },
+        { name:'הצטיינות דקאן',              file:'Teudot/תעודת הצטיינות דקאן.jpg',                                  cat:'תארים' },
+        { name:'מטפלים זוגיים',              file:'Teudot/מטפלים זוגיים.jpeg',                                       cat:'טיפול זוגי ומשפחתי' },
+        { name:'מטפלת מוסמכת – זוגי',        file:'Teudot/מטפלת מוסמכת בטיפול זוגי.jpeg',                           cat:'טיפול זוגי ומשפחתי' },
+        { name:'תעודת טיפול באמנות',         file:'Teudot/תעודת טיפול באמנות.jpg',                                   cat:'טיפול באומנות' },
+        { name:'ביצירה הבעה תרפיה',          file:'Teudot/חברות ב- ביצירה הבעה תרפיה.jpg',                           cat:'טיפול באומנות' },
+        { name:'EMDR שלבים א+ב',            file:'Teudot/EMDR (שלבים א+ב).jpeg',                                    cat:'EMDR וטיפול בטראומה' },
+        { name:'טיפול בנפגעי התעללות (א)',   file:'Teudot/קורס טיפול בילדים ונוער נפגעים מינית1.jpg',               cat:'EMDR וטיפול בטראומה' },
+        { name:'טיפול בנפגעי התעללות (ב)',   file:'Teudot/קורס טיפול בילדים ונוער נפגעים מינית2.jpeg',              cat:'EMDR וטיפול בטראומה' },
+        { name:'טיפול בילד – פסיכודינמי',    file:'Teudot/טיפול בילד ובנוער בגישה פסיכודינמית.jpeg',                cat:'גישות טיפוליות' },
+        { name:'פסיכוטרפיה קבוצתית',         file:'Teudot/פסיכוטרפיה קבוצתית בגישה פסיכואנליטית.jpg',              cat:'גישות טיפוליות' },
+        { name:'גישה התייחוסית',             file:'Teudot/תעודת עקרונות הגישה ההתייחוסית.jpg',                       cat:'גישות טיפוליות' },
+        { name:'הדרכה על הדרכה',             file:'Teudot/קורס הדרכה על הדרכה.jpg',                                  cat:'גישות טיפוליות' },
+    ];
+    const CAT_META = {
+        'תארים':              { icon:'fas fa-graduation-cap', color:'#5c7a68' },
+        'טיפול זוגי ומשפחתי': { icon:'fas fa-heart',          color:'#a07850' },
+        'טיפול באומנות':      { icon:'fas fa-paint-brush',    color:'#7a5e8e' },
+        'EMDR וטיפול בטראומה':{ icon:'fas fa-brain',          color:'#4a7080' },
+        'גישות טיפוליות':     { icon:'fas fa-users',          color:'#6a7a50' },
+    };
+
+    let certIndex = 0, certAnimating = false, certsReady = false;
+
+    function initCerts() {
+        const idx = document.getElementById('certsIndex');
+        let html = '', lastCat = '';
+        CERTS.forEach((c, i) => {
+            if (c.cat !== lastCat) {
+                if (lastCat) html += '</ul></div>';
+                const m = CAT_META[c.cat];
+                html += `<div class="cert-cat"><div class="cert-cat-title" style="color:${m.color}"><i class="${m.icon}"></i>${c.cat}</div><ul>`;
+                lastCat = c.cat;
+            }
+            html += `<li class="cert-nav-item${i===0?' active':''}" data-i="${i}" onclick="selectCert(${i})">${c.name}</li>`;
+        });
+        html += '</ul></div>';
+        idx.innerHTML = html;
+        document.getElementById('certImg').src = CERTS[0].file;
+        document.getElementById('certLabel').textContent = CERTS[0].name;
+        document.getElementById('certCountText').textContent = '1 / ' + CERTS.length;
+    }
+
+    function selectCert(i) {
+        if (i === certIndex || certAnimating) return;
+        certAnimating = true;
+        playPageFlip();
+        const display = document.getElementById('certDisplay');
+        display.classList.add('anim-out');
+        setTimeout(() => {
+            certIndex = i;
+            document.getElementById('certImg').src = CERTS[i].file;
+            document.getElementById('certLabel').textContent = CERTS[i].name;
+            document.getElementById('certCountText').textContent = (i+1) + ' / ' + CERTS.length;
+            document.querySelectorAll('.cert-nav-item').forEach(el => el.classList.toggle('active', +el.dataset.i === i));
+            display.classList.remove('anim-out');
+            display.classList.add('anim-in');
+            setTimeout(() => { display.classList.remove('anim-in'); certAnimating = false; }, 200);
+        }, 180);
+    }
+
+    function certNav(dir) {
+        selectCert((certIndex + dir + CERTS.length) % CERTS.length);
+    }
+
+    function playPageFlip() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const sr = ctx.sampleRate;
+            const buf = ctx.createBuffer(1, sr * 0.13, sr);
+            const d = buf.getChannelData(0);
+            for (let i = 0; i < d.length; i++) {
+                const t = i / sr;
+                d[i] = (Math.random()*2-1) * Math.exp(-t*28) * (1-Math.exp(-t*350)) * 0.7;
+            }
+            const src = ctx.createBufferSource();
+            src.buffer = buf;
+            const f = ctx.createBiquadFilter();
+            f.type = 'highpass'; f.frequency.value = 1600;
+            const g = ctx.createGain(); g.gain.value = 0.22;
+            src.connect(f); f.connect(g); g.connect(ctx.destination);
+            src.start();
+            setTimeout(() => ctx.close(), 500);
+        } catch(e) {}
     }
 </script>
 
