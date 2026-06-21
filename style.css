@@ -66,7 +66,7 @@ body {
 .profile-img-wrapper { position: relative; display: inline-block; margin-bottom: 14px; }
 
 .profile-img {
-    width: 208px; height: 208px;
+    width: 250px; height: 250px;
     border-radius: 14px;
     object-fit: contain;
     background: white;
@@ -367,6 +367,13 @@ body {
 .contact-row-text .label { font-size: .76rem; color: var(--text-light); }
 .contact-row-text .value { font-size: .93rem; font-weight: 500; }
 
+.certs-hint {
+    font-size: .78rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 4px;
+}
+
 .contact-tagline {
     grid-column: span 2;
     text-align: center;
@@ -585,7 +592,7 @@ body {
     }
 
     .profile-img-wrapper { flex-shrink: 0; }
-    .profile-img  { width: 104px; height: 104px; border-radius: 10px; }
+    .profile-img  { width: 125px; height: 125px; border-radius: 10px; }
     .profile-badge { width: 24px; height: 24px; font-size: 10px; bottom: 2px; left: 2px; }
 
     .profile-text { flex: 1; text-align: right; }
@@ -645,11 +652,11 @@ body {
     .btn-cta  { justify-content: center; }
 
     /* Certs tab mobile — accordion + viewer side by side */
-    #tab-certs {
-        height: calc(100dvh - 180px);
-        overflow: hidden;
+    #tab-certs.active {
         display: flex;
         flex-direction: column;
+        height: calc(100dvh - 180px);
+        overflow: hidden;
     }
     #tab-certs .tab-header { flex-shrink: 0; margin-bottom: 8px; }
     #tab-certs .tab-header h2 { font-size: 1.05rem; }

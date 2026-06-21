@@ -296,6 +296,7 @@
             <div class="tab-header">
                 <h2>תעודות והסמכות</h2>
                 <div class="tab-divider"></div>
+                <p class="certs-hint">לחץ על שם התעודה כדי להציגה</p>
             </div>
             <div class="certs-layout">
 
@@ -345,23 +346,26 @@
     }
 
     /* ── CERTS ── */
+    function certSrc(file) {
+        const slash = file.indexOf('/');
+        return file.slice(0, slash + 1) + encodeURIComponent(file.slice(slash + 1));
+    }
+
     const CERTS = [
-        { name:'תואר ראשון B.Ed.',          file:'Teudot/תואר ראשון B. Ed..jpeg',                                   cat:'תארים' },
-        { name:'מוסמך בחינוך M.Ed.',         file:'Teudot/מוסמך בחינוך M.Ed.jpeg',                                   cat:'תארים' },
-        { name:'תואר שני – ייעוץ חינוכי',    file:'Teudot/תואר שני - ייעוץ חינוכי.jpeg',                             cat:'תארים' },
-        { name:'תואר שני – טיפול באומנות',   file:'Teudot/תואר שני בטיפול באומנות למטפלים מנוסים.jpg',              cat:'תארים' },
-        { name:'הצטיינות דקאן',              file:'Teudot/תעודת הצטיינות דקאן.jpg',                                  cat:'תארים' },
-        { name:'מטפלים זוגיים',              file:'Teudot/מטפלים זוגיים.jpeg',                                       cat:'טיפול זוגי ומשפחתי' },
-        { name:'מטפלת מוסמכת – זוגי',        file:'Teudot/מטפלת מוסמכת בטיפול זוגי.jpeg',                           cat:'טיפול זוגי ומשפחתי' },
-        { name:'תעודת טיפול באמנות',         file:'Teudot/תעודת טיפול באמנות.jpg',                                   cat:'טיפול באומנות' },
-        { name:'חבר ביה"ת (אמנות חזותית)',     file:'Teudot/חברות ב- ביצירה הבעה תרפיה.jpg',                           cat:'טיפול באומנות' },
-        { name:'EMDR שלבים א+ב',            file:'Teudot/EMDR (שלבים א+ב).jpeg',                                    cat:'EMDR וטיפול בטראומה' },
-        { name:'טיפול בנפגעי התעללות (א)',   file:'Teudot/קורס טיפול בילדים ונוער נפגעים מינית1.jpg',               cat:'EMDR וטיפול בטראומה' },
-        { name:'טיפול בנפגעי התעללות (ב)',   file:'Teudot/קורס טיפול בילדים ונוער נפגעים מינית2.jpeg',              cat:'EMDR וטיפול בטראומה' },
-        { name:'טיפול בילד – פסיכודינמי',    file:'Teudot/טיפול בילד ובנוער בגישה פסיכודינמית.jpeg',                cat:'גישות טיפוליות' },
-        { name:'פסיכוטרפיה קבוצתית',         file:'Teudot/פסיכוטרפיה קבוצתית בגישה פסיכואנליטית.jpg',              cat:'גישות טיפוליות' },
-        { name:'גישה התייחוסית',             file:'Teudot/תעודת עקרונות הגישה ההתייחוסית.jpg',                       cat:'גישות טיפוליות' },
-        { name:'הדרכה על הדרכה',             file:'Teudot/קורס הדרכה על הדרכה.jpg',                                  cat:'גישות טיפוליות' },
+        { name:'תואר ראשון B.Ed.',                              file:'Teudot/תואר ראשון B. Ed..jpeg',                                cat:'תארים' },
+        { name:'תואר שני – טיפול באומנות',                      file:'Teudot/תואר שני בטיפול באומנות למטפלים מנוסים.jpg',           cat:'תארים' },
+        { name:'הצטיינות דקאן',                                 file:'Teudot/תעודת הצטיינות דקאן.jpg',                               cat:'תארים' },
+        { name:'מטפלים זוגיים',                                  file:'Teudot/מטפלים זוגיים.jpeg',                                    cat:'טיפול זוגי ומשפחתי' },
+        { name:'מטפלת מוסמכת בטיפול זוגי ומשפחתי',              file:'Teudot/מטפלת מוסמכת בטיפול זוגי.jpeg',                        cat:'טיפול זוגי ומשפחתי' },
+        { name:'תעודת טיפול באמנות',                             file:'Teudot/תעודת טיפול באמנות.jpg',                                cat:'טיפול באומנות' },
+        { name:'חברות ביה"ת',                                   file:'Teudot/חברות ב- ביצירה הבעה תרפיה.jpg',                        cat:'טיפול באומנות' },
+        { name:'EMDR שלבים א+ב',                                file:'Teudot/EMDR (שלבים א+ב).jpeg',                                 cat:'EMDR וטיפול בטראומה' },
+        { name:'טיפול בנפגעי התעללות מינית (א)',                 file:'Teudot/קורס טיפול בילדים ונוער נפגעים מינית1.jpg',            cat:'EMDR וטיפול בטראומה' },
+        { name:'טיפול בנפגעי התעללות מינית (ב)',                 file:'Teudot/קורס טיפול בילדים ונוער נפגעים מינית2.jpeg',           cat:'EMDR וטיפול בטראומה' },
+        { name:'טיפול בילד ובנוער בגישה פסיכודינמית',            file:'Teudot/טיפול בילד ובנוער בגישה פסיכודינמית.jpeg',             cat:'גישות טיפוליות' },
+        { name:'פסיכותרפיה קבוצתית',                             file:'Teudot/פסיכוטרפיה קבוצתית בגישה פסיכואנליטית.jpg',           cat:'גישות טיפוליות' },
+        { name:'גישה התייחסותית',                                file:'Teudot/תעודת עקרונות הגישה ההתייחוסית.jpg',                   cat:'גישות טיפוליות' },
+        { name:'הדרכה על הדרכה',                                 file:'Teudot/קורס הדרכה על הדרכה.jpg',                               cat:'גישות טיפוליות' },
     ];
     const CAT_META = {
         'תארים':              { icon:'fas fa-graduation-cap', color:'#5c7a68' },
@@ -390,7 +394,7 @@
         });
         html += '</ul></div>';
         idx.innerHTML = html;
-        document.getElementById('certImg').src = CERTS[0].file;
+        document.getElementById('certImg').src = certSrc(CERTS[0].file);
         document.getElementById('certLabel').textContent = CERTS[0].name;
         document.getElementById('certCountText').textContent = '1 / ' + CERTS.length;
     }
@@ -411,7 +415,7 @@
         display.classList.add('anim-out');
         setTimeout(() => {
             certIndex = i;
-            document.getElementById('certImg').src = CERTS[i].file;
+            document.getElementById('certImg').src = certSrc(CERTS[i].file);
             document.getElementById('certLabel').textContent = CERTS[i].name;
             document.getElementById('certCountText').textContent = (i+1) + ' / ' + CERTS.length;
             document.querySelectorAll('.cert-nav-item').forEach(el => el.classList.toggle('active', +el.dataset.i === i));
