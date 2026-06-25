@@ -37,8 +37,13 @@ body {
     padding: 32px 26px 20px;
     border-left: 1px solid var(--border);
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 .sidebar::before {
     content: '';
@@ -555,12 +560,25 @@ body {
 
 /* ── RESPONSIVE: TABLET ── */
 @media (max-width: 1100px) {
-    .page-wrapper { grid-template-columns: 300px 1fr; }
+    .page-wrapper { grid-template-columns: 280px 1fr; }
     .content-panel { padding: 28px 26px; }
     .about-layout { grid-template-columns: 1fr 200px; gap: 22px; }
     .resume-grid   { grid-template-columns: 1fr; }
     .contact-wrapper { grid-template-columns: 1fr; }
     .cta-card { grid-column: 1; }
+    .profile-img { width: 200px; height: 200px; }
+}
+
+/* ── RESPONSIVE: LAPTOP (low viewport height) ── */
+@media (max-height: 820px) and (min-width: 769px) {
+    .sidebar { padding: 16px 22px 12px; }
+    .profile-img { width: 160px; height: 160px; }
+    .profile-img-wrapper { margin-bottom: 8px; }
+    .sidebar h1 { font-size: 1.5rem; margin-bottom: 4px; }
+    .divider { margin: 8px auto 10px; }
+    .sidebar-meta { margin-bottom: 8px; gap: 4px; font-size: .78rem; }
+    .contact-buttons { margin-bottom: 12px; }
+    .nav-item { padding: 8px 14px; font-size: .84rem; }
 }
 
 /* ── PAGE FOOTER (mobile only) ── */
