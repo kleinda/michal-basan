@@ -12,6 +12,17 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: 3px;
+}
+
 body {
     font-family: 'Heebo', sans-serif;
     background: var(--bg);
@@ -156,6 +167,15 @@ body {
 
 .nav-item i { width: 18px; color: var(--primary); font-size: .9rem; }
 
+.nav-hint {
+    font-size: .68rem;
+    font-weight: 400;
+    color: var(--text-light);
+    white-space: normal;
+    line-height: 1.6;
+    display: inline-block;
+}
+
 .nav-item:hover { background: rgba(122,158,135,.1); color: var(--text); }
 
 .nav-item.active {
@@ -165,7 +185,15 @@ body {
 
 .sidebar-footer {
     margin-top: auto; font-size: .72rem; color: #bbb;
-    text-align: center; position: relative; z-index: 1; padding-top: 10px;
+    text-align: center; position: relative; z-index: 1; padding-top: 10px; line-height: 1.8;
+}
+
+.sidebar-footer a, .page-footer a {
+    color: #aaa; text-decoration: none;
+}
+
+.sidebar-footer a:hover, .page-footer a:hover {
+    color: var(--primary); text-decoration: underline;
 }
 
 /* ── CONTENT PANEL ── */
@@ -226,8 +254,15 @@ body {
     background: linear-gradient(135deg, #e8f0e9, #f2ede5);
     border-right: 3px solid var(--primary);
     padding: 18px 20px; border-radius: 0 12px 12px 0;
-    margin: 20px 0; font-size: .97rem; font-style: italic;
+    margin: 20px 0; font-size: .97rem;
     color: var(--primary-dark); line-height: 1.75;
+}
+
+mark.hl {
+    background: #fff176;
+    color: inherit;
+    padding: 0 2px;
+    border-radius: 2px;
 }
 
 /* ── TAB 2: במי אני מטפלת ── */
@@ -373,10 +408,14 @@ body {
 .contact-row-text .value { font-size: .93rem; font-weight: 500; }
 
 .certs-hint {
-    font-size: .78rem;
-    color: var(--text-light);
-    font-style: italic;
-    margin-top: 4px;
+    font-size: .82rem;
+    font-weight: 700;
+    color: #3a3a3a;
+    background: #fff176;
+    padding: 2px 7px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 6px;
 }
 
 .contact-tagline {
