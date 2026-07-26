@@ -567,7 +567,12 @@
     function handleEmailClick(e) {
         if (/Mobi|Android/i.test(navigator.userAgent)) {
             e.preventDefault();
-            window.location.href = 'mailto:michalbess@gmail.com';
+            const to = 'michalbess@gmail.com';
+            if (/Android/i.test(navigator.userAgent)) {
+                window.location.href = 'intent://co?to=' + to + '#Intent;scheme=googlegmail;package=com.google.android.gm;end';
+            } else {
+                window.location.href = 'googlegmail://co?to=' + to;
+            }
         }
     }
 
