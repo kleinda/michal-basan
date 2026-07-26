@@ -608,8 +608,8 @@
             e.preventDefault();
             const to = 'michalbess@gmail.com';
             if (/Android/i.test(navigator.userAgent)) {
-                const fallback = encodeURIComponent('https://mail.google.com/mail/?view=cm&fs=1&to=' + to);
-                window.location.href = 'intent://co?to=' + to + '#Intent;scheme=googlegmail;package=com.google.android.gm;S.browser_fallback_url=' + fallback + ';end';
+                const fallback = encodeURIComponent('mailto:' + to);
+                window.location.href = 'intent://send?to=' + to + '#Intent;action=android.intent.action.SENDTO;scheme=mailto;package=com.google.android.gm;S.browser_fallback_url=' + fallback + ';end';
             } else {
                 window.location.href = 'googlegmail://co?to=' + to;
             }
