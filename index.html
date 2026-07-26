@@ -294,7 +294,7 @@
                                 <div class="value">שליחת הודעה</div>
                             </div>
                         </a>
-                        <a href="https://mail.google.com/mail/?view=cm&to=michalbess@gmail.com" class="contact-row" target="_blank">
+                        <a href="https://mail.google.com/mail/?view=cm&to=michalbess@gmail.com" class="contact-row" target="_blank" onclick="handleEmailClick(event)">
                             <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                             <div class="contact-row-text">
                                 <div class="label">אימייל</div>
@@ -563,6 +563,13 @@
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeServiceModal(); });
+
+    function handleEmailClick(e) {
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            e.preventDefault();
+            window.location.href = 'mailto:michalbess@gmail.com';
+        }
+    }
 
     function showTab(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
