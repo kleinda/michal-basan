@@ -47,13 +47,16 @@ body {
     height: 100dvh;
     overflow: hidden;
     direction: rtl;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ── LAYOUT ── */
 .page-wrapper {
     display: grid;
     grid-template-columns: 360px 1fr;
-    height: 100dvh;
+    flex: 1;
+    min-height: 0;
 }
 
 /* ── SIDEBAR ── */
@@ -200,16 +203,11 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,.06);
 }
 
-.sidebar-footer {
-    margin-top: auto; font-size: .72rem; color: #bbb;
-    text-align: center; position: relative; z-index: 1; padding-top: 10px; line-height: 1.8;
-}
-
-.sidebar-footer a, .page-footer a {
+.page-footer a {
     color: #555; text-decoration: none;
 }
 
-.sidebar-footer a:hover, .page-footer a:hover {
+.page-footer a:hover {
     color: var(--primary); text-decoration: underline;
 }
 
@@ -518,6 +516,10 @@ mark.hl {
     border-right-color: var(--primary);
 }
 
+/* Cert accordion — collapsed by default, open class reveals list */
+.cert-cat > ul { display: none; }
+.cert-cat.open > ul { display: block; }
+
 /* Stack */
 .certs-viewer { display: flex; flex-direction: column; align-items: center; gap: 18px; }
 
@@ -678,7 +680,7 @@ mark.hl {
     border-bottom: 1px solid #e8e2d9;
 }
 .modal-content p { margin: 0 0 10px; }
-.modal-content em { color: #888; font-size: .88rem; }
+.modal-content em { color: #636363; font-size: .88rem; }
 .modal-content .case-img {
     width: 100%;
     border-radius: 10px;
@@ -733,15 +735,24 @@ mark.hl {
     .nav-item { padding: 8px 14px; font-size: .84rem; }
 }
 
-/* ── PAGE FOOTER (mobile only) ── */
-.page-footer { display: none; }
+/* ── PAGE FOOTER (always visible — contentinfo landmark) ── */
+.page-footer {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 8px 20px;
+    font-size: .72rem;
+    color: #5a5a5a;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    line-height: 1.8;
+}
 
 /* ── RESPONSIVE: MOBILE ── */
 @media (max-width: 768px) {
     body { overflow-x: hidden; overflow-y: auto; }
     html { overflow-x: hidden; }
 
-    .page-wrapper { grid-template-columns: 1fr; height: auto; }
+    .page-wrapper { grid-template-columns: 1fr; height: auto; flex: none; }
 
     /* ── Sidebar → compact top header ── */
     .sidebar {
@@ -770,10 +781,9 @@ mark.hl {
     .subtitle     { font-size: .85rem; max-width: none; margin: 0; line-height: 1.6; }
     .divider      { display: none; }
 
-    /* Hide meta, contact buttons, desktop footer */
+    /* Hide meta and contact buttons on mobile */
     .sidebar-meta     { display: none; }
     .contact-buttons  { display: none; }
-    .sidebar-footer   { display: none; }
 
     /* Nav: single row below header, icon + small label */
     .sidebar-nav {
@@ -909,14 +919,11 @@ mark.hl {
     .cert-counter { gap: 10px; font-size: .78rem; }
     .cert-nav-btn { width: 28px; height: 28px; font-size: .75rem; }
 
-    /* Page footer visible on mobile */
+    /* Page footer — mobile overrides */
     .page-footer {
-        display: block;
-        text-align: center;
         padding: 16px;
         font-size: .78rem;
-        color: #888;
-        border-top: 1px solid var(--border);
+        color: #636363;
     }
 }
 
@@ -929,5 +936,6 @@ mark.hl {
     .phone-float, .whatsapp-float,
     .btn, .btn-cta, .nav-item,
     .cert-nav-btn, .card-more,
-    .contact-row, .skip-link { transition: none; }
+    .contact-row, .skip-link,
+    .modal-close, .cert-cat-title { transition: none; }
 }

@@ -128,10 +128,6 @@
             </button>
         </nav>
 
-        <div class="sidebar-footer">
-            &copy; 2026 מיכל בסן &mdash; כל הזכויות שמורות<br>
-            <a href="accessibility.html">הצהרת נגישות</a> &bull; <a href="privacy.html">מדיניות פרטיות</a>
-        </div>
     </aside>
 
     <!-- ══ CONTENT PANEL ══ -->
@@ -400,7 +396,7 @@
     </main>
 </div>
 
-<!-- Page footer (mobile only) -->
+<!-- Page footer — contentinfo landmark, always visible -->
 <footer class="page-footer">
     &copy; 2026 מיכל בסן &mdash; כל הזכויות שמורות<br>
     <a href="accessibility.html">הצהרת נגישות</a> &bull; <a href="privacy.html">מדיניות פרטיות</a>
@@ -768,9 +764,11 @@
             if (c.cat !== lastCat) {
                 if (lastCat) html += '</ul></div>';
                 const m = CAT_META[c.cat];
-                html += `<div class="cert-cat${catIdx===0?' open':''}">
+                const isOpen = catIdx === 0 || window.innerWidth > 768;
+                html += `<div class="cert-cat${isOpen ? ' open' : ''}">
                     <div class="cert-cat-title" style="--cat-color:${m.color}"
                         role="button" tabindex="0"
+                        aria-expanded="${isOpen ? 'true' : 'false'}"
                         onclick="toggleCertCat(this)"
                         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCertCat(this);}">
                         <i class="${m.icon}" aria-hidden="true"></i><span>${c.cat}</span><i class="fas fa-chevron-left cert-arrow" aria-hidden="true"></i>
@@ -791,11 +789,21 @@
     }
 
     function toggleCertCat(el) {
-        if (window.innerWidth > 768) return;
         const cat = el.parentElement;
         const isOpen = cat.classList.contains('open');
-        document.querySelectorAll('.cert-cat').forEach(c => c.classList.remove('open'));
-        if (!isOpen) cat.classList.add('open');
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.cert-cat').forEach(c => {
+                c.classList.remove('open');
+                c.querySelector('.cert-cat-title').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                cat.classList.add('open');
+                el.setAttribute('aria-expanded', 'true');
+            }
+        } else {
+            cat.classList.toggle('open');
+            el.setAttribute('aria-expanded', cat.classList.contains('open') ? 'true' : 'false');
+        }
     }
 
     function selectCert(i) {
