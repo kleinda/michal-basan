@@ -353,7 +353,7 @@
                             <div class="contact-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>
                             <div class="contact-row-text">
                                 <div class="label">אימייל</div>
-                                <div class="value">michalbess@gmail.com</div>
+                                <div class="value" lang="en">michalbess@gmail.com</div>
                             </div>
                         </a>
                         <div class="contact-row">
@@ -378,7 +378,7 @@
             </div>
             <div class="certs-layout">
 
-                <nav class="certs-index" id="certsIndex"></nav>
+                <nav class="certs-index" id="certsIndex" aria-label="רשימת תעודות"></nav>
 
                 <div class="certs-viewer">
                     <div class="certs-stack">
@@ -407,7 +407,7 @@
 </footer>
 
 <!-- Service Modal -->
-<div id="serviceModal" class="modal-overlay" onclick="if(event.target===this)closeServiceModal()" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div id="serviceModal" class="modal-overlay" onclick="if(event.target===this)closeServiceModal()" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-box">
         <button class="modal-close" onclick="closeServiceModal()" aria-label="סגירת חלון">✕</button>
         <h3 id="modalTitle" class="modal-title"></h3>
@@ -666,13 +666,16 @@
         document.getElementById('modalContent').innerHTML = html;
         const modal = document.getElementById('serviceModal');
         modal.classList.add('open');
+        modal.removeAttribute('aria-hidden');
         document.body.style.overflow = 'hidden';
         document.addEventListener('keydown', _modalFocusTrap);
         modal.querySelector('.modal-close').focus();
     }
 
     function closeServiceModal() {
-        document.getElementById('serviceModal').classList.remove('open');
+        const modal = document.getElementById('serviceModal');
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
         document.removeEventListener('keydown', _modalFocusTrap);
         if (_modalOpener) { _modalOpener.focus(); _modalOpener = null; }
