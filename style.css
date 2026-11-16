@@ -599,7 +599,7 @@ mark.hl {
     margin-top: 10px;
     background: none;
     border: none;
-    color: var(--primary-dark);
+    color: #c0392b;
     font-size: .8rem;
     font-weight: 700;
     cursor: pointer;
