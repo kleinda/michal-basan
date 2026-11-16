@@ -599,17 +599,18 @@ mark.hl {
     margin-top: 10px;
     background: none;
     border: none;
-    color: #c0392b;
+    color: tomato;
     font-size: .8rem;
     font-weight: 700;
     cursor: pointer;
     font-family: 'Heebo', sans-serif;
     padding: 6px 4px;
-    opacity: .6;
-    transition: opacity .15s;
+    transition: color .15s;
 }
 
-.card-more:hover { opacity: 1; text-decoration: underline; }
+@media (hover: hover) {
+    .card-more:hover { color: #000; text-decoration: underline; }
+}
 
 /* ── SERVICE MODAL ── */
 .modal-overlay {
